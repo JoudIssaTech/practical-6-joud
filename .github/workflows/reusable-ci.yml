@@ -1,0 +1,28 @@
+name: Reusable CI
+
+on:
+  workflow_call:
+    inputs:
+      node-version:
+        required: false
+        type: string
+        default: "18"
+    secrets:
+      NPM_TOKEN:
+        required: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Node environment
+      # Call your composite action here
+        uses: ./.github/actions/setup-node
+        with:
+          node-version: ${{ inputs.node-version }}
+
+      - name: Run lint
+        run: npm run lint
+
+      - name: Run tests
+        run: npm test
