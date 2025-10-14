@@ -7,16 +7,15 @@ on:
         required: false
         type: string
         default: "18"
-    secrets:
-      NPM_TOKEN:
-        required: false
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
       - name: Setup Node environment
-      # Call your composite action here
         uses: ./.github/actions/setup-node
         with:
           node-version: ${{ inputs.node-version }}
@@ -26,3 +25,4 @@ jobs:
 
       - name: Run tests
         run: npm test
+`
