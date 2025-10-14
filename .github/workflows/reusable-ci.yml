@@ -12,6 +12,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      # 👇 Checkout the repo so local action exists
       - name: Checkout repository
         uses: actions/checkout@v4
 
@@ -25,4 +26,3 @@ jobs:
 
       - name: Run tests
         run: npm test
-`
