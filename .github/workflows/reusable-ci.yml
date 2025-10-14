@@ -9,11 +9,12 @@ on:
         default: "18"
     secrets:
       NPM_TOKEN:
-        required: false   # 👈 add this
+        required: false
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -23,9 +24,13 @@ jobs:
         with:
           node-version: ${{ inputs.node-version }}
 
+      # ✅ Safe way to handle NPM_TOKEN
       - name: Configure npm auth (optional)
-        if: secrets.NPM_TOKEN != ''
-        run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
+        if: env.NPM_TOKEN != ''
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
 
       - name: Run lint
         run: npm run lint
