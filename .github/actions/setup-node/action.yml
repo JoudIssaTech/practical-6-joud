@@ -31,6 +31,8 @@ runs:
 
     - name: Run lint
       run: npm run lint || echo "No lint script or lint failed, skipping..."
+      shell: bash
 
     - name: Run tests
       run: npm test || echo "No test script or tests failed, skipping..."
+      shell: bash
