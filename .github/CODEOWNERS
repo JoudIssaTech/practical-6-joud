@@ -1,15 +1,8 @@
-# CODEOWNERS
-# -----------------
-# Order matters: last matching pattern takes precedence
-
-# 1️⃣ Global fallback
-* @org/backend
-
-# 2️⃣ Frontend ownership
+# Frontend owns frontend folder
 /frontend/ @org/frontend
 
-# 3️⃣ Shared API logic (overlaps with frontend)
-frontend/api/ @org/backend
+# Backend owns backend folder
+/backend/ @org/backend
 
-# 4️⃣ Specific file override
+# Specific file overrides
 /frontend/api/payment.js @org/frontend
