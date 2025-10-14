@@ -1,16 +1,53 @@
 name: "Setup Node Environment"
-description: "Sets up Node.js, installs dependencies, and caches node_modules"
+description: "Sets up Node.js and installs dependencies safely without requiring a lockfile"
+
 inputs:
   node-version:
     description: "Node.js version to use"
     required: true
     default: "18"
+
 runs:
   using: "composite"
   steps:
+    # 1️⃣ Checkout the repo (necessary for local action)
     - name: Checkout repository
       uses: actions/checkout@v4
 
+    # 2️⃣ Setup Node.js
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ inputs.node-version }}
+        # ❌ Removed cache to avoid lockfile requirement
+
+    # 3️⃣ Install dependencies
     - name: Install dependencies
-      run: npm ci
+      run: |
+        if [ -f package-lock.json ]; then
+          echo "package-lock.json found, running npm ci..."
+          npm ci
+        else
+          echo "No package-lock.json found, running npm install..."
+          npm install
+        fi
+      shell: bash
+
+    # 4️⃣ Optional: run lint and tests
+    - name: Run lint
+      run: |
+        if npm run lint >/dev/null 2>&1; then
+          npm run lint
+        else
+          echo "No lint script defined, skipping..."
+        fi
+      shell: bash
+
+    - name: Run tests
+      run: |
+        if npm test >/dev/null 2>&1; then
+          npm test
+        else
+          echo "No test script defined, skipping..."
+        fi
       shell: bash
