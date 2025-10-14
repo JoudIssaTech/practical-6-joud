@@ -1,11 +1,11 @@
-# Backend owns all files by default
-* @org/backend
+# Default ownership for all files: backend team
+* @JoudIssaTech/backend
 
-# Frontend owns all files in frontend folder
-/frontend/ @org/frontend
+# Frontend folder ownership
+/frontend/ @JoudIssaTech/frontend
 
-# Backend owns specific shared folder if needed
-/backend/api/ @org/backend
+# Backend API folder ownership
+/backend/api/ @JoudIssaTech/backend
 
-# Example of more specific frontend override
-/frontend/api/payment.js @org/frontend
+# Specific frontend file override
+/frontend/api/payment.js @JoudIssaTech/frontend
