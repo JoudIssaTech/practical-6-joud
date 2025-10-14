@@ -11,4 +11,4 @@ jobs:
     with:
       node-version: "20"
     secrets:
-      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}   # ✅ now valid
